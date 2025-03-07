@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Wand2 } from 'lucide-react';
-import axios from "axios";
-import { BACKEND_URL } from '../config';
 
 export function Home() {
 	const [prompt, setPrompt] = useState('');
@@ -15,34 +13,50 @@ export function Home() {
 		}
 	};
 
+	const [selectedModel, setSelectedModel] = useState("gpt-4o");
+
 	return (
-		<div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 flex items-center justify-center p-4">
+		<div className="min-h-screen flex items-end justify-center pb-28">
 			<div className="max-w-2xl w-full">
-				<div className="text-center mb-8">
-					<div className="flex justify-center mb-4">
-						<Wand2 className="w-12 h-12 text-blue-400" />
-					</div>
-					<h1 className="text-4xl font-bold text-gray-100 mb-4">
-						Website Builder AI
+				<div className="text-center mb-8 cursor-default">
+					<h1 className="text-4xl font-bold mb-4">
+						<span className="text-purple-700">WARP</span> - Website Builder AI
 					</h1>
-					<p className="text-lg text-gray-300">
-						Describe your dream website, and we'll help you build it step by step
-					</p>
 				</div>
 
 				<form onSubmit={handleSubmit} className="space-y-4">
-					<div className="bg-gray-800 rounded-lg shadow-lg p-6">
+					<div className="bg-gray-100 rounded-lg shadow-2xl p-6">
 						<textarea
 							value={prompt}
 							onChange={(e) => setPrompt(e.target.value)}
 							placeholder="Describe the website you want to build..."
-							className="w-full h-32 p-4 bg-gray-900 text-gray-100 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none placeholder-gray-500"
+							className="w-full h-28 p-4 rounded-lg focus:border-transparent resize-none text-black placeholder-gray-500 focus:ring-black focus:border-black"
 						/>
+
+						{/* Selection Dropdown */}
+						<div className="mt-4">
+							<label htmlFor="model" className="block text-sm font-medium text-gray-700">
+								Select Model
+							</label>
+							<select
+								id="model"
+								value={selectedModel}
+								onChange={(e) => setSelectedModel(e.target.value)}
+								className="w-full mt-1 p-2 border border-gray-300 rounded-lg bg-white text-black focus:ring-black focus:border-black"
+							>
+								<option value="chatgpt">gpt-4o</option>
+								<option value="chatgpt">gpt-4o-mini</option>
+								<option value="chatgpt">gpt-3.5-turbo</option>
+								<option value="anthropic">claude-3-5-sonnet-20241022</option>
+								<option value="anthropic">claude-3-5-haiku-20241022</option>
+							</select>
+						</div>
+
 						<button
 							type="submit"
-							className="w-full mt-4 bg-blue-600 text-gray-100 py-3 px-6 rounded-lg font-medium hover:bg-blue-700 transition-colors"
+							className="w-full mt-4 bg-black text-gray-100 py-3 px-6 rounded-lg font-semibold cursor-pointer"
 						>
-							Generate Website Plan
+							Generate
 						</button>
 					</div>
 				</form>

@@ -7,6 +7,7 @@ import { TextBlock } from '@anthropic-ai/sdk/resources';
 import { basePrompt as nodeBasePrompt } from './defaults/node';
 import { basePrompt as reactBasePrompt } from './defaults/react';
 import cors from "cors"
+import { tempResponse } from './temp';
 
 const anthropic = new Anthropic();
 const app = express();
@@ -63,5 +64,14 @@ app.post("/chat", async (req, res) => {
         response: (response.content[0] as TextBlock)?.text
     })
 })
+
+// app.post("/chat", async (req, res) => {
+//     const messages = req.body.messages;
+//     const response = tempResponse
+
+//     res.json({
+//         response: (response.content[0] as TextBlock)?.text
+//     })
+// })
 
 app.listen(3000);
